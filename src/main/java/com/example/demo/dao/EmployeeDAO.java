@@ -10,4 +10,6 @@ public interface EmployeeDAO {
 	Optional<Employee> findById(Long id);
 	
 	Employee save(Employee employee);
+	
+	Employee update(Employee employee);
 }

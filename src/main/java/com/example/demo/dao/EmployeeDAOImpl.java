@@ -51,6 +51,21 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			//session.getTransaction().rollback();
 		}
 		
+		return employee;
+	}
+
+
+	@Override
+	public Employee update(Employee employee) {
+		
+		try {
+			//session.beginTransaction();
+			session.merge(employee);
+			//session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			//session.getTransaction().rollback();
+		}
 		
 		return employee;
 	}

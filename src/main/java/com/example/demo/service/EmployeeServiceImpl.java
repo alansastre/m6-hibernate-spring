@@ -36,6 +36,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return employee;
 		
 		return this.employeeDAO.save(employee);
+		// return this.employeeRepository.save(employee);
 	}
+
+
+	@Override
+	public Employee update(Employee employee) {
+		return this.employeeDAO.update(employee);
+	}
+	
+	
 
 }

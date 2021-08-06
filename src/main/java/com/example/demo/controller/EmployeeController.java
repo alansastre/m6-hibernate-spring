@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.domain.Car;
 import com.example.demo.domain.Employee;
 import com.example.demo.service.EmployeeService;
 
@@ -55,6 +57,18 @@ public class EmployeeController {
 		
 		
 		return ResponseEntity.internalServerError().build(); // si mal
+	}
+	
+	// update 
+	@PutMapping("/employees")
+	public ResponseEntity<Employee> update(@RequestBody Employee employee) {
+
+		if (employee.getId() == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		return ResponseEntity.ok(this.employeeService.save(employee));
+		
 	}
 	
 	
