@@ -1,1 +1,2 @@
 INSERT INTO employees(full_name, biography, married, age) values ('Employee 1', 'Lorem ipsum dolor', true, 20);
+INSERT INTO employees(full_name, biography, married, age) values ('Employee 2', 'Lorem ipsum dolor', true, 20);

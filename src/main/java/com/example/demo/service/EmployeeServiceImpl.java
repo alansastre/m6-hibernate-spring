@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -52,6 +53,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return false;
 		
 		return this.employeeDAO.deleteById(id);
+	}
+
+
+	@Override
+	public List<Employee> findAll() {
+		//return this.employeeDAO.findAllFromSession();
+		 return this.employeeDAO.findAllFromEntityManager();
 	}
 	
 	

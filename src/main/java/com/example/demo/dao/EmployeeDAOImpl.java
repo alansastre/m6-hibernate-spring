@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -91,6 +92,23 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		
 		return false;
+	}
+
+
+	@Override
+	public List<Employee> findAllFromSession() {
+
+		String hql = "from Employee";
+		
+		return  session.createQuery(hql, Employee.class).list();
+	}
+
+
+	@Override
+	public List<Employee> findAllFromEntityManager() {
+	
+		String hql = "from Employee";
+		return entityManager.createQuery(hql, Employee.class).getResultList();
 	}
 
 	

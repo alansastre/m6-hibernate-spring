@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.example.demo.domain.Employee;
 import com.example.demo.service.EmployeeService;
@@ -29,6 +29,12 @@ public class EmployeeController {
 	
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
+	}
+	
+	
+	@GetMapping("/employees")
+	public List<Employee> findAll(){
+		return this.employeeService.findAll();
 	}
 	
 	
