@@ -44,6 +44,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee update(Employee employee) {
 		return this.employeeDAO.update(employee);
 	}
+
+
+	@Override
+	public Boolean deleteById(Long id) {
+		if(id == null || id == 0) 
+			return false;
+		
+		return this.employeeDAO.deleteById(id);
+	}
 	
 	
 

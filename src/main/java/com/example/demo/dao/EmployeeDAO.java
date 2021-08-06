@@ -12,4 +12,6 @@ public interface EmployeeDAO {
 	Employee save(Employee employee);
 	
 	Employee update(Employee employee);
+	
+	Boolean deleteById(Long id);
 }

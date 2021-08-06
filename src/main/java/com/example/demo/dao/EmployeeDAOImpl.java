@@ -29,9 +29,10 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		try {
 			
 			Employee employee = session.find(Employee.class, id);
-			return Optional.of(employee);
+			if (employee != null) 
+				return Optional.of(employee);
 			
-		} catch (NoResultException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -43,12 +44,12 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	public Employee save(Employee employee) {
 		
 		try {
-			//session.beginTransaction();
+			session.beginTransaction();
 			session.save(employee);
-			//session.getTransaction().commit();
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			//session.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		
 		return employee;
@@ -59,15 +60,37 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	public Employee update(Employee employee) {
 		
 		try {
-			//session.beginTransaction();
+			session.beginTransaction();
 			session.merge(employee);
-			//session.getTransaction().commit();
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			//session.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		
 		return employee;
+	}
+
+
+	@Override
+	public Boolean deleteById(Long id) {
+		
+		Optional<Employee> empOpt = this.findById(id);
+		if (empOpt.isEmpty()) 
+			return false;
+		
+		
+		try {
+			session.beginTransaction();
+			session.delete(empOpt.get());
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		
+		return false;
 	}
 
 	

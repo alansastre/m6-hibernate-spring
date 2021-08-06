@@ -12,4 +12,6 @@ public interface EmployeeService {
 	
 	Employee update(Employee employee);
 	
+	Boolean deleteById(Long id);
+	
 }

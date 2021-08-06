@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.example.demo.domain.Employee;
 import com.example.demo.service.EmployeeService;
@@ -66,11 +68,21 @@ public class EmployeeController {
 			return ResponseEntity.badRequest().build();
 		}
 		
-		return ResponseEntity.ok(this.employeeService.save(employee));
-		
+		return ResponseEntity.ok(this.employeeService.update(employee));
 	}
 	
-	
+	@DeleteMapping("/employees/{id}")
+	public ResponseEntity<Employee> delete(@PathVariable Long id){
+		
+//		if(this.employeeService.deleteById(id))
+//			return ResponseEntity.noContent().build();
+//		
+//		return ResponseEntity.internalServerError().build(); // si mal
+		
+		return this.employeeService.deleteById(id) ? 
+				ResponseEntity.noContent().build() : ResponseEntity.internalServerError().build();
+		
+	}
 	
 	
 	
