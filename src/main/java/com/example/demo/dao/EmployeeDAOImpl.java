@@ -38,6 +38,23 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return Optional.empty();
 	}
 
+
+	@Override
+	public Employee save(Employee employee) {
+		
+		try {
+			//session.beginTransaction();
+			session.save(employee);
+			//session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			//session.getTransaction().rollback();
+		}
+		
+		
+		return employee;
+	}
+
 	
 	
 	

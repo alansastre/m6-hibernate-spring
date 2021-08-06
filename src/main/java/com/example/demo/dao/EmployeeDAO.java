@@ -8,4 +8,6 @@ public interface EmployeeDAO {
 
 	// filtros
 	Optional<Employee> findById(Long id);
+	
+	Employee save(Employee employee);
 }

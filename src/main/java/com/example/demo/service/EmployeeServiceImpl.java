@@ -29,4 +29,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return this.employeeDAO.findById(id);
 	}
 
+
+	@Override
+	public Employee save(Employee employee) {
+		if(employee == null) 
+			return employee;
+		
+		return this.employeeDAO.save(employee);
+	}
+
 }

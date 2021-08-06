@@ -7,4 +7,7 @@ import com.example.demo.domain.Employee;
 public interface EmployeeService {
 
 	Optional<Employee> findById(Long id);
+	
+	Employee save(Employee employee);
+	
 }
