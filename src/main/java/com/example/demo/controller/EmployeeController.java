@@ -37,6 +37,21 @@ public class EmployeeController {
 		return this.employeeService.findAll();
 	}
 	
+	@GetMapping("/employees/fullname/{fullName}")
+	public List<Employee> findAllByFullName(@PathVariable String fullName){
+		return this.employeeService.findAllByFullName(fullName);
+	}
+	
+	@GetMapping("/employees/age1/{age1}/age2/{age2}")
+	public List<Employee> findAllByAgeBetween(@PathVariable Integer age1, @PathVariable Integer age2){
+		return this.employeeService.findAllByAgeBetween(age1, age2);
+	}
+	
+	@GetMapping("/employees/age/{age}/married/{married}")
+	public List<Employee> findAllByAgeAndMarried(@PathVariable Integer age, @PathVariable Boolean married){
+		return this.employeeService.findAllByAgeAndMarried(age, married);
+	}
+	
 	
 	@GetMapping("/employees/{id}")
 	public ResponseEntity<Employee> findById(@PathVariable Long id) {

@@ -11,6 +11,12 @@ public interface EmployeeService {
 	
 	List<Employee> findAll();
 	
+	List<Employee> findAllByFullName(String fullName);
+	
+	List<Employee> findAllByAgeBetween(Integer age1, Integer age2);
+	
+	List<Employee> findAllByAgeAndMarried(Integer age, Boolean married);
+	
 	Employee save(Employee employee);
 	
 	Employee update(Employee employee);

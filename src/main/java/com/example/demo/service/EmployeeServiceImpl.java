@@ -61,6 +61,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 		//return this.employeeDAO.findAllFromSession();
 		 return this.employeeDAO.findAllFromEntityManager();
 	}
+
+
+	@Override
+	public List<Employee> findAllByFullName(String fullName) {
+		return this.employeeDAO.findAllByFullName(fullName);
+	}
+
+
+	@Override
+	public List<Employee> findAllByAgeAndMarried(Integer age, Boolean married) {
+		return this.employeeDAO.findAllByAgeAndMarried(age, married);
+	}
+
+
+	@Override
+	public List<Employee> findAllByAgeBetween(Integer age1, Integer age2) {
+		return this.employeeDAO.findAllByAgeBetween(age1, age2);
+	}
 	
 	
 

@@ -12,7 +12,12 @@ public interface EmployeeDAO {
 	
 	List<Employee> findAllFromSession();
 	List<Employee> findAllFromEntityManager();
-
+	
+	List<Employee> findAllByFullName(String fullName);
+	
+	List<Employee> findAllByAgeBetween(Integer age1, Integer age2);
+	
+	List<Employee> findAllByAgeAndMarried(Integer age, Boolean married);
 	
 	Employee save(Employee employee);
 	

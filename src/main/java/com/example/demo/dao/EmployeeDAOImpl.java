@@ -6,6 +6,10 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +115,96 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return entityManager.createQuery(hql, Employee.class).getResultList();
 	}
 
+
+	/**
+	 * CRUD
+	 * 
+	 * Retrieve: búsquedas
+	 * 
+	 * 1. find
+	 * 2. HQL
+	 * 3. API Criteria: hacer SQL desde Java POO
+	 */
+	@Override
+	public List<Employee> findAllByFullName(String fullName) {
+
+		// 1 - Criteria Query
+
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
+		
+		// from
+		Root<Employee> root = criteria.from(Employee.class);
+		
+		criteria.select(root);
+		
+		// filtros: contiene un texto
+		criteria.where(builder.like(root.get("fullName"), "%" + fullName + "%"));
+		
+		// 2 - Query normal que recibe los criterios: obtener resultados
+		List<Employee> employees = session.createQuery(criteria).list();
+		
+		return employees;
+	}
+
+
+	@Override
+	public List<Employee> findAllByAgeBetween(Integer age1, Integer age2) {
+
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
+		
+		// from
+		Root<Employee> root = criteria.from(Employee.class);
+		
+		criteria.select(root);
+		
+		// filtros: contiene un texto
+		if (age2 < age1) 
+			criteria.where(builder.between(root.get("age"), age2, age1));
+		else
+			criteria.where(builder.between(root.get("age"), age1, age2));
+		
+		// 2 - Query normal que recibe los criterios: obtener resultados
+		List<Employee> employees = session.createQuery(criteria).list();
+		
+		return employees;
+	}
+
+
+	@Override
+	public List<Employee> findAllByAgeAndMarried(Integer age, Boolean married) {
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
+		
+		// from
+		Root<Employee> root = criteria.from(Employee.class);
+		
+		criteria.select(root);
+		
+		// filtros
+		Predicate pred1 = builder.gt(root.get("age"), 18);
+		
+		Predicate pred2 = null;
+		if (married) 
+			pred2 = builder.isTrue(root.get("married"));
+		else
+			pred2 = builder.isFalse(root.get("married"));
+		
+		criteria.where(builder.and(pred1, pred2));
+		
+		// 2 - Query normal que recibe los criterios: obtener resultados
+		List<Employee> employees = session.createQuery(criteria).list();
+		
+		return employees;
+	}
+
+	
+	
+	
+	
+	
+	
 	
 	
 	
